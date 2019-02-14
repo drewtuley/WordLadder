@@ -1,4 +1,5 @@
 import copy
+import sys
 
 
 def ping_pong_index(start_idx, end_idx):
@@ -27,9 +28,13 @@ def recursive_find(src, ladder_steps, idx, max_idx, target, found_dict):
                 recursive_find(fword, ladder_steps, idx + 1, max_idx, end, copy.copy(found_dict))
 
 
-start = 'mild'
-end = 'soft'
-max_steps = 7
+if len(sys.argv) == 4:
+    start = sys.argv[1]
+    end = sys.argv[2]
+    max_steps = int(sys.argv[3])
+else:
+    print('Usage: WordLadder <start> <end> <steps>')
+    exit(0)
 
 word_len = len(start)
 words = []
