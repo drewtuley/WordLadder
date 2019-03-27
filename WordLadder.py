@@ -17,15 +17,15 @@ def ping_pong_index(start_idx, end_idx):
         curr_index += 1
 
 
-def recursive_find(src, ladder_steps, idx, max_idx, target, found_dict):
+def recursive_find(src, ladder_steps, idx, max_idx, target, found_dict, data):
     if idx < max_idx and src in ladder_steps[idx]:
         for fword in ladder_steps[idx][src]:
             if idx + 1 < max_idx + 1 and fword not in found_dict.values():
                 found_dict[idx] = fword
                 # print('found_list=', found_dict)
                 if fword == target and idx == max_idx - 1:
-                    print(found_dict)
-                recursive_find(fword, ladder_steps, idx + 1, max_idx, end, copy.copy(found_dict))
+                    data.append(found_dict.values())
+                recursive_find(fword, ladder_steps, idx + 1, max_idx, end, copy.copy(found_dict), data)
 
 
 if len(sys.argv) == 4:
@@ -87,5 +87,8 @@ for source_step, target_step in ping_pong_index(0, max_steps):
 # for idx in range(0, max_steps + 1):
 #    print('{0}: {1},'.format(idx, stages[idx]))
 
+data=[]
 for key in stages[0].keys():
-    recursive_find(key, stages, 0, max_steps + 1, end, {})
+    recursive_find(key, stages, 0, max_steps + 1, end, {}, data)
+
+print(data)
